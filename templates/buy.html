@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="page-head">
+  <div>
+    <h1>Buy Data Bundle</h1>
+    <p class="subtext">Instant delivery to any number.</p>
+  </div>
+</div>
+
+<!-- 1. Select Network -->
+<div class="buy-box">
+  <h3>1. Select Network</h3>
+
+  <div class="network-row">
+    {% for key, n in networks.items() %}
+      <a class="net-pill {{ 'active' if selected == key else '' }}"
+         href="{{ url_for('buy_network', network=key) }}">
+        <img src="{{ url_for('static', filename=n.logo) }}" alt="{{ n.label }}">
+        <span>{{ n.label }}</span>
+      </a>
+    {% endfor %}
+  </div>
+</div>
+
+{% if selected %}
+  <!-- Dropdown appears after selecting network -->
+  <div class="buy-box mt">
+    <h3>2. Select Package</h3>
+
+    <div class="select-wrap">
+      <label class="small-label">Choose a bundle</label>
+      <select id="bundleSelect" class="bundle-select">
+        <option value="" selected disabled>Select a package</option>
+        {% for o in offers %}
+          <option value="{{ o.gb }}">{{ o.gb }} — GHS {{ "%.2f"|format(o.price) }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <!-- Packages grid like your screenshots -->
+    <div class="offers-grid mt">
+  {% for o in offers %}
+    <a class="offer-card" href="{{ url_for('checkout', network=selected, plan=o.gb) }}">
+      <div class="gb">{{ o.gb }}</div>
+      <div class="price">GHS {{ "%.2f"|format(o.price) }}</div>
+    </a>
+  {% endfor %}
+</div>
+  </div>
+{% endif %}
+
+<script>
+  // When user picks from dropdown, highlight the matching package card
+  const select = document.getElementById("bundleSelect");
+  const cards = document.querySelectorAll(".offer-card");
+
+  if (select) {
+    select.addEventListener("change", () => {
+      const gb = select.value;
+      cards.forEach(c => {
+        c.classList.toggle("picked", c.dataset.gb === gb);
+      });
+    });
+  }
+
+  // When user clicks a card, set dropdown value and highlight
+  cards.forEach(card => {
+    card.addEventListener("click", () => {
+      const gb = card.dataset.gb;
+      if (select) select.value = gb;
+      cards.forEach(c => c.classList.remove("picked"));
+      card.classList.add("picked");
+    });
+  });
+</script>
+
+{% endblock %}

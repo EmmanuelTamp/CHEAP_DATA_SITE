@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title or "PrimeData Hub" }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="app">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="brand">
+            <h2>PrimeData</h2>
+            <small>Data Bundles</small>
+        </div>
+
+        <div class="wallet-box">
+            <p>WALLET BALANCE</p>
+            <h3>GHS {{ wallet_balance }}</h3>
+        </div>
+
+        <nav>
+            <a class="{{ 'active' if active == 'dashboard' else '' }}" href="/">Dashboard</a>
+            <a class="{{ 'active' if active == 'buy' else '' }}" href="/buy">Buy Data</a>
+            <a href="#">Wallet</a>
+            <a href="#">History</a>
+            <a href="#">Announcements</a>
+        </nav>
+
+        <div class="share">
+            <a href="#">Share App</a>
+        </div>
+    </aside>
+
+    <!-- Page Content -->
+    <main class="content">
+        {% block content %}{% endblock %}
+    </main>
+
+</div>
+
+</body>
+</html>

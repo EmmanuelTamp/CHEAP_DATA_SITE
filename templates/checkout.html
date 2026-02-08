@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="page-head">
+  <div>
+    <h1>Complete Purchase</h1>
+    <p class="subtext">
+      Network: <strong>{{ network_label }}</strong> • Package: <strong>{{ plan }}</strong>
+      {% if price is not none %} • Price: <strong>GHS {{ "%.2f"|format(price) }}</strong>{% endif %}
+    </p>
+  </div>
+  <a class="back-link" href="{{ url_for('buy_network', network=network_key) }}">← Back</a>
+</div>
+
+<form method="POST" class="form-wrap">
+
+  <div class="form-box">
+    <h3>Customer Details</h3>
+
+    <div class="form-grid">
+      <div class="field">
+        <label>Full Name</label>
+        <input type="text" name="fullname" required placeholder="e.g. John Mensah">
+      </div>
+
+      <div class="field">
+        <label>Contact</label>
+        <input type="text" name="contact" required placeholder="e.g. 024xxxxxxx">
+      </div>
+
+      <div class="field">
+        <label>Email</label>
+        <input type="email" name="email" required placeholder="e.g. you@email.com">
+      </div>
+
+      <div class="field">
+        <label>Location (Optional)</label>
+        <select name="location">
+          <option value="">Select Region (Optional)</option>
+          {% for r in regions %}
+            <option value="{{ r }}">{{ r }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-box mt">
+    <h3>Recipient Number</h3>
+    <p class="subtext">Enter the number you are buying the data for.</p>
+
+    <div class="field">
+      <label>Recipient Phone Number</label>
+      <input type="text" name="recipient_phone" required placeholder="e.g. 055xxxxxxx">
+    </div>
+  </div>
+
+  <button class="btn mt" type="submit">Submit Order</button>
+</form>
+
+{% endblock %}

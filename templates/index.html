@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard | PrimeData Hub</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="app">
+
+
+    <!-- Main Content -->
+    <main class="content">
+<h1>Welcome back, Friend!</h1>
+
+<div class="cards">
+    <div class="card">
+        <p>Data Bundle</p>
+        <h2>Buy Data</h2>
+        <a href="/buy" class="btn">Select Package</a>
+    </div>
+
+    <div class="card">
+        <p>Wallet Balance</p>
+        <h2>Top Up</h2>
+        <a href="#" class="btn green">Add Funds</a>
+    </div>
+</div>
+
+<div class="transactions">
+    <div class="transactions-header">
+        <h3>Recent Transactions</h3>
+        <a href="#">View History</a>
+    </div>
+    <p class="muted">Syncing history...</p>
+</div>
+
+{% endblock %}

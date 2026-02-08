@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="page-head">
+  <div class="head-flex">
+    <div class="net-title">
+      <div class="logo-mini">
+        <img src="{{ url_for('static', filename=logo_path) }}" alt="{{ network_name }}">
+      </div>
+      <div>
+        <h1>{{ network_name }} Bundles</h1>
+        <p class="subtext">Select a bundle to continue.</p>
+      </div>
+    </div>
+
+    <a class="back-link" href="{{ url_for('buy') }}">← Back to networks</a>
+  </div>
+</div>
+
+<div class="offers-grid">
+  {% for offer in offers %}
+  <a class="offer-card" href="#">
+    <div class="offer-top">
+      <h3>{{ offer.plan }}</h3>
+      <span class="price">GHS {{ "%.2f"|format(offer.price) }}</span>
+    </div>
+    <p class="validity">Validity: {{ offer.validity }}</p>
+    <div class="offer-cta">Continue →</div>
+  </a>
+  {% endfor %}
+</div>
+
+{% endblock %}
